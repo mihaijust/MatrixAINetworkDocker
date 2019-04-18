@@ -1,7 +1,7 @@
 # Build Gman in a stock Go builder container #shang and yang
-FROM golang:1.9-alpine 
+FROM golang:1.12-alpine 
 
-RUN apk add --no-cache make gcc musl-dev linux-headers
+RUN apk add --no-cache make gcc musl-dev linux-headers git
 
 ADD . /go-matrix
 RUN cd /go-matrix && make gman
@@ -11,5 +11,5 @@ RUN cd /go-matrix && make gman
 RUN apk add --no-cache ca-certificates
 RUN  ln -s  /go-matrix/build/bin/gman /usr/local/bin/gman
 
-#EXPOSE 8341 8546 50505 50505/udp 30304/udp
-ENTRYPOINT ["gman"]
+EXPOSE 8341 8546 50505 50505/udp 30304/udp
+CMD ["gman"]
