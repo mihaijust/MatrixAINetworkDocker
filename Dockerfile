@@ -9,7 +9,6 @@ RUN cd /go-matrix && make gman
 # Pull Gman into a second stage deploy alpine container
 
 RUN apk add --no-cache ca-certificates
-RUN  ln -s  /go-matrix/nodeConfig.sh /usr/local/bin/nodeConfig
 
 EXPOSE 8341 8546 50505 50505/udp 30304/udp
-ENTRYPOINT ["nodeConfig"]
+CMD ["/go-matrix/nodeConfig.sh"]
