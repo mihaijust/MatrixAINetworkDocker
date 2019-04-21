@@ -11,4 +11,4 @@ RUN cd /go-matrix && make gman
 RUN apk add --no-cache ca-certificates
 
 EXPOSE 8341 8546 50505 50505/udp 30304/udp
-CMD ["/go-matrix/nodeConfig.sh"]
+ENTRYPOINT ["/go-matrix/nodeConfig.sh"]
