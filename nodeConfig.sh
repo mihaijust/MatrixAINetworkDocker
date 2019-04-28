@@ -5,8 +5,8 @@ if [ -f "/go-matrix/man.json" ]; then
 fi
 
 #This section creates your entrust.json file on the fly each time you start the container
-#This requires that you mount a persistent volume from your host OS to the /go-matrix/chaindata directory
-#You must have a signAccount.json file in your mounted directory
+#This requires that you mount a persistent volume from your host OS to the container's /go-matrix/chaindata directory
+#You must have a signAccount.json file in your mounted chaindata directory
 PASS="$(date +%s | sha256sum | base64 | head -c 4)pO1@"
 echo $PASS > /go-matrix/gman.pass
 echo $PASS >> /go-matrix/gman.pass
