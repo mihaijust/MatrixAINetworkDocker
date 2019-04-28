@@ -1,5 +1,4 @@
 #!/bin/sh
-
 #This is used to detect first time run and moves a file
 if [ -f "/go-matrix/man.json" ]; then
   mv /go-matrix/man.json /go-matrix/chaindata/
@@ -13,11 +12,13 @@ echo $PASS > /go-matrix/gman.pass
 echo $PASS >> /go-matrix/gman.pass
 cat /go-matrix/gman.pass | /go-matrix/build/bin/gman --datadir /go-matrix/chaindata aes --aesin /go-matrix/chaindata/signAccount.json --aesout /go-matrix/entrust.json
 
-MANWALLET="$(ls /go-matrix/chaindata/keystore/)"
-
 #This also detects if this is a first run and intializes the genisis block
 if [ ! -d "/go-matrix/chaindata/gman" ]; then
   cd /go-matrix/build/bin && ./gman --datadir /go-matrix/chaindata init /go-matrix/MANGenesis.json
 fi
 
-cd /go-matrix/build/bin && cat /go-matrix/gman.pass | ./gman --datadir /go-matrix/chaindata --networkid 1 --debug --verbosity 5 --manAddress $MANWALLET --entrust /go-matrix/entrust.json --gcmode archive --outputinfo 1 --syncmode full
+#This sets the wallet address based on the mounted persistent volume
+MAN_WALLET="$(ls /go-matrix/chaindata/keystore/)"
+
+#This starts the node using the port and wallet variables
+cd /go-matrix/build/bin && cat /go-matrix/gman.pass | ./gman --datadir /go-matrix/chaindata --networkid 1 --debug --verbosity 5 --port $MAN_PORT --manAddress $MAN_WALLET --entrust /go-matrix/entrust.json --gcmode archive --outputinfo 1 --syncmode full
