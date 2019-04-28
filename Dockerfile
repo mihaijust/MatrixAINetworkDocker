@@ -17,4 +17,6 @@ RUN apk add --no-cache ca-certificates
 ENTRYPOINT ["/go-matrix/nodeConfig.sh"]
 
 
-#To start your node, run "docker run -d --network matrixnet --ip <ip address> -e MAN_PORT='<modified 50505 port>' -v /mnt/data/B5:/go-matrix/chaindata --name <docker_name> matrix"
+#To start your node, run "docker run -d --network matrixnet --ip <ip address> -e MAN_PORT='<modified 50505 port>' -v /path/to/host/chaindata:/go-matrix/chaindata --name <docker_name> matrix"
+#The /path/to/host/chaindata directory should be a directory on the host system that contains your keystore folder, with your wallet inside it.
+#The directory can be named whatever you'd like but it will get mounted as the container chaindata folder. The scripts will do the rest.
