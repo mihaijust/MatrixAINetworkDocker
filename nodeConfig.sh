@@ -21,4 +21,4 @@ fi
 MAN_WALLET="$(ls /go-matrix/chaindata/keystore/)"
 
 #This starts the node using the port and wallet variables
-cd /go-matrix/build/bin && cat /go-matrix/gman.pass | ./gman --datadir /go-matrix/chaindata --networkid 1 --debug --verbosity 5 --port $MAN_PORT --manAddress $MAN_WALLET --entrust /go-matrix/entrust.json --gcmode archive --outputinfo 1 --syncmode full
+cd /go-matrix/build/bin && cat /go-matrix/gman.pass | ./gman --datadir /go-matrix/chaindata --networkid 1 --debug --verbosity 1 --port $MAN_PORT --manAddress $MAN_WALLET --entrust /go-matrix/entrust.json --gcmode archive --outputinfo 1 --syncmode full
