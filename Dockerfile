@@ -1,22 +1,18 @@
 # Build Gman in a stock Go builder container #shang and yang
-FROM golang:1.12-alpine 
+FROM alpine:3.7
 
 # Grab needed packages
-RUN apk add --no-cache make gcc musl-dev linux-headers git gnupg
+RUN apk add --no-cache linux-headers git gnupg ca-certificates
 
-# Add repo and compile
-ADD . /go-matrix
-RUN cd /go-matrix && make gman
+# add script for starting gman
+ADD . /matrix
 
-# Pull Gman into a second stage deploy alpine container
+# grab files from official matrix repo
+RUN cd /matrix && wget https://github.com/MatrixAINetwork/GMAN_CLIENT/raw/master/MAINNET/5.17/linux/gman https://raw.githubusercontent.com/MatrixAINetwork/GMAN_CLIENT/master/MAINNET/5.17/MANGenesis.json https://raw.githubusercontent.com/MatrixAINetwork/GMAN_CLIENT/master/MAINNET/5.17/man.json
 
-RUN apk add --no-cache ca-certificates
-
-#No longer needed EXPOSE 8341 8546 50505 50505/udp 30304/udp
 # Start node script that sets a random entrust password to start node
-ENTRYPOINT ["/go-matrix/nodeConfig.sh"]
+ENTRYPOINT ["/matrix/nodeConfig.sh"]
 
-
-#To start your node, run "docker run -d --network matrixnet --ip <ip address> -e MAN_PORT='<modified 50505 port>' -v /path/to/host/chaindata:/go-matrix/chaindata --name <docker_name> matrix"
+#To start your node, run "docker run -d --network matrixnet --ip <ip address> -e MAN_PORT='<modified 50505 port>' -v /path/to/host/chaindata:/matrix/chaindata --name <docker_name> matrix"
 #The /path/to/host/chaindata directory should be a directory on the host system that contains your keystore folder, with your wallet inside it.
 #The directory can be named whatever you'd like but it will get mounted as the container chaindata folder. The scripts will do the rest.
