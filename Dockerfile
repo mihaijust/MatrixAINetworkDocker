@@ -1,14 +1,15 @@
 # Build Gman in a stock Go builder container #shang and yang
-FROM alpine:3.7
+FROM debian:latest
 
-# Grab needed packages
-RUN apk add --no-cache linux-headers git gnupg ca-certificates
+# install needed packages
+RUN apt-get update && apt-get install -y procps wget && rm -rf /var/lib/apt/lists/*
 
-# add script for starting gman
+# add script for starting gman from repo
 ADD . /matrix
 
-# grab files from official matrix repo
-RUN cd /matrix && wget https://github.com/MatrixAINetwork/GMAN_CLIENT/raw/master/MAINNET/5.17/linux/gman https://raw.githubusercontent.com/MatrixAINetwork/GMAN_CLIENT/master/MAINNET/5.17/MANGenesis.json https://raw.githubusercontent.com/MatrixAINetwork/GMAN_CLIENT/master/MAINNET/5.17/man.json
+# grab files from official matrix repo and set execute permissions
+RUN cd /matrix && wget https://github.com/MatrixAINetwork/GMAN_CLIENT/raw/master/MAINNET/5.17/linux/gman https://raw.githubusercontent.com/MatrixAINetwork/GMAN_CLIENT/master/MAINNET/5.17/MANGenesis.json https://raw.githubusercontent.com/MatrixAINetwork/GMAN_CLIENT/master/MAINNET/5.17/man.json && chmod a+x gman
+
 
 # Start node script that sets a random entrust password to start node
 ENTRYPOINT ["/matrix/nodeConfig.sh"]
