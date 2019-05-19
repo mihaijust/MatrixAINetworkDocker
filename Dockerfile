@@ -2,7 +2,7 @@
 FROM debian:latest
 
 # install needed packages
-RUN apt-get update && apt-get install -y procps wget && rm -rf /var/lib/apt/lists/*
+RUN apt-get update && apt-get install -y procps wget net-tools && rm -rf /var/lib/apt/lists/*
 
 # add script for starting gman from repo
 ADD . /matrix
