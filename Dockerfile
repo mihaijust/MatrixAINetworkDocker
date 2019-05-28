@@ -10,6 +10,8 @@ ADD . /matrix
 # grab files from official matrix repo and set execute permissions
 RUN cd /matrix && wget https://github.com/MatrixAINetwork/GMAN_CLIENT/raw/master/MAINNET/5.17/linux/gman https://raw.githubusercontent.com/MatrixAINetwork/GMAN_CLIENT/master/MAINNET/5.17/MANGenesis.json https://raw.githubusercontent.com/MatrixAINetwork/GMAN_CLIENT/master/MAINNET/5.17/man.json && chmod a+x gman
 
+# move MatrixLog cleanup scrip to cron.daily - script deletes logs older than 24 hours
+RUN mc /matrix/logCleanup /etc/cron.daily/
 
 # Start node script that sets a random entrust password to start node
 ENTRYPOINT ["/matrix/nodeConfig.sh"]
