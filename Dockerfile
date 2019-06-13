@@ -1,4 +1,4 @@
-# Build Gman in a stock Go builder container #shang and yang
+# build from stock debian image
 FROM debian:latest
 
 # install needed packages
