@@ -4,7 +4,7 @@ FROM debian:latest
 # install needed packages
 RUN apt-get update && apt-get install -y procps wget net-tools cron && rm -rf /var/lib/apt/lists/*
 
-# add script for starting gman from repo
+# add repo scripts
 ADD . /matrix
 
 # grab files from official matrix repo and set execute permissions
