@@ -29,4 +29,8 @@ MAN_WALLET="$(ls /matrix/chaindata/keystore/)"
 ln -sf /matrix/chaindata/snapdir/TrieData1405031 /matrix/snapdir/TrieData1405031
 
 #This starts the node using the port and wallet variables
-cd /matrix/ && cat /matrix/gman.pass | ./gman --datadir /matrix/chaindata --networkid 1 --debug --verbosity 1 --port $MAN_PORT --manAddress $MAN_WALLET --entrust /matrix/entrust.json --gcmode archive --outputinfo 1 --syncmode full --loadsnapfile "TrieData1405031"
+if [ ! -f "/matrix/chaindata/firstRun" ]; then
+	cd /matrix/ && cat /matrix/gman.pass | ./gman --datadir /matrix/chaindata --networkid 1 --debug --verbosity 1 --port $MAN_PORT --manAddress $MAN_WALLET --entrust /matrix/entrust.json --gcmode archive --outputinfo 1 --syncmode full --loadsnapfile "TrieData1405031" && touch /matrix/chaindata/firstRun
+else
+	cd /matrix/ && cat /matrix/gman.pass | ./gman --datadir /matrix/chaindata --networkid 1 --debug --verbosity 1 --port $MAN_PORT --manAddress $MAN_WALLET --entrust /matrix/entrust.json --gcmode archive --outputinfo 1 --syncmode full
+fi
