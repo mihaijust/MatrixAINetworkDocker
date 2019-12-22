@@ -22,15 +22,15 @@ if [ ! -d "/matrix/chaindata/picstore" ]; then
 	mv /matrix/picstore /matrix/chaindata/
 fi
 
-#This sets the wallet address based on the mounted persistent volume
+# This reads your wallet address and assigns to to the variable
 MAN_WALLET="$(ls /matrix/chaindata/keystore/)"
 
 #link TrieData to persistent mount
 ln -sf /matrix/chaindata/snapdir/TrieData1405031 /matrix/snapdir/TrieData1405031
 
-#This starts the node using the port and wallet variables
+# detect if this is the first time running and use snapshot if needed
 if [ ! -f "/matrix/chaindata/firstRun" ]; then
-	touch /matrix/chaindata/firstRun && cd /matrix/ && cat /matrix/gman.pass | ./gman --datadir /matrix/chaindata --networkid 1 --debug --verbosity 1 --port $MAN_PORT --manAddress $MAN_WALLET --entrust /matrix/entrust.json --gcmode archive --outputinfo 1 --syncmode full --loadsnapfile "TrieData1405031"
+	echo "First run detected, using snapshot" && touch /matrix/chaindata/firstRun && cd /matrix/ && cat /matrix/gman.pass | ./gman --datadir /matrix/chaindata --networkid 1 --debug --verbosity 1 --port $MAN_PORT --manAddress $MAN_WALLET --entrust /matrix/entrust.json --gcmode archive --outputinfo 1 --syncmode full --loadsnapfile "TrieData1405031"
 else
-	cd /matrix/ && cat /matrix/gman.pass | ./gman --datadir /matrix/chaindata --networkid 1 --debug --verbosity 1 --port $MAN_PORT --manAddress $MAN_WALLET --entrust /matrix/entrust.json --gcmode archive --outputinfo 1 --syncmode full
+	echo "Snapshot NOT loaded/used" && cd /matrix/ && cat /matrix/gman.pass | ./gman --datadir /matrix/chaindata --networkid 1 --debug --verbosity 1 --port $MAN_PORT --manAddress $MAN_WALLET --entrust /matrix/entrust.json --gcmode archive --outputinfo 1 --syncmode full
 fi
