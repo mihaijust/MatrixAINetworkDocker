@@ -30,7 +30,7 @@ ln -sf /matrix/chaindata/snapdir/TrieData1405031 /matrix/snapdir/TrieData1405031
 
 # detect if this is the first time running and use snapshot if needed
 if [ ! -f "/matrix/chaindata/firstRun" ]; then
-	echo "First run detected, using snapshot" && touch /matrix/chaindata/firstRun && cd /matrix/ && cat /matrix/gman.pass | ./gman --datadir /matrix/chaindata --networkid 1 --debug --verbosity 1 --port $MAN_PORT --manAddress $MAN_WALLET --entrust /matrix/entrust.json --gcmode archive --outputinfo 1 --syncmode full --loadsnapfile "TrieData1405031"
+	echo "First run detected, using snapshot" && touch /matrix/chaindata/firstRun && cd /matrix/ && cat /matrix/gman.pass | ./gman --datadir /matrix/chaindata --networkid 1 --debug --verbosity 1 --port $MAN_PORT --manAddress $MAN_WALLET --entrust /matrix/entrust.json --gcmode archive --outputinfo 1 --syncmode full --loadsnapfile "TrieData1784250"
 else
 	echo "Snapshot NOT loaded/used" && cd /matrix/ && cat /matrix/gman.pass | ./gman --datadir /matrix/chaindata --networkid 1 --debug --verbosity 1 --port $MAN_PORT --manAddress $MAN_WALLET --entrust /matrix/entrust.json --gcmode archive --outputinfo 1 --syncmode full
 fi
