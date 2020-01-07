@@ -26,7 +26,7 @@ fi
 MAN_WALLET="$(ls /matrix/chaindata/keystore/)"
 
 #link TrieData to persistent mount
-ln -sf /matrix/chaindata/snapdir/TrieData1405031 /matrix/snapdir/TrieData1405031
+ln -sf /matrix/chaindata/snapdir/TrieData1784250 /matrix/snapdir/TrieData1784250
 
 # detect if this is the first time running and use snapshot if needed
 if [ ! -f "/matrix/chaindata/firstRun" ]; then
