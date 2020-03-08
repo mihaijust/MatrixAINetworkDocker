@@ -14,7 +14,7 @@ RUN cd /matrix && wget https://github.com/MatrixAINetwork/GMAN_CLIENT/raw/master
 RUN chmod 0600 /matrix/cronjob
 RUN mv /matrix/cronjob /etc/cron.d/cronjob
 RUN crontab -u root /etc/cron.d/cronjob
-RUN touch /var/log/cron.log
+CMD cron
 
 # Start node script that sets a random entrust password to start node
 ENTRYPOINT ["/matrix/nodeConfig.sh"]
