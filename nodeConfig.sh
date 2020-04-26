@@ -12,23 +12,26 @@ echo $PASS > /matrix/gman.pass
 echo $PASS >> /matrix/gman.pass
 cat /matrix/gman.pass | /matrix/gman --datadir /matrix/chaindata aes --aesin /matrix/chaindata/signAccount.json --aesout /matrix/entrust.json
 
-#This also detects if this is a first run and intializes the genisis block
+#This detects if this is a first run and intializes the genisis block
 if [ ! -d "/matrix/chaindata/gman" ]; then
   cd /matrix/ && ./gman --datadir /matrix/chaindata init /matrix/MANGenesis.json
 fi
 
-#Move picstore directory into chaindata on first run if it doesn't exist
-if [ ! -d "/matrix/chaindata/picstore" ]; then
+#This will make sure that the picstore directory gets updated each time a container image is updated
+if [ -d "/matrix/picstore" ]; then
+	rm -rf /matrix/chaindata/picstore
 	mv /matrix/picstore /matrix/chaindata/
 fi
 
 # This reads your wallet address and assigns to to the variable
 MAN_WALLET="$(ls /matrix/chaindata/keystore/)"
 
-#link TrieData to persistent mount
-ln -sf /matrix/chaindata/snapdir/TrieData1784250 /matrix/snapdir/TrieData1784250
+# link TrieData to persistent mount
+if [ -f "/matrix/snapdir/TrieData1784250" ]; then
+	ln -sf /matrix/chaindata/snapdir/TrieData1784250 /matrix/snapdir/TrieData1784250
+fi
 
-# detect if this is the first time running and use snapshot if needed
+# detects if this is the first run and uses snapshot if needed
 if [ ! -f "/matrix/chaindata/firstRun" ]; then
 	echo "First run detected, using snapshot" && touch /matrix/chaindata/firstRun && cd /matrix/ && cat /matrix/gman.pass | ./gman --datadir /matrix/chaindata --networkid 1 --debug --verbosity 5 --port $MAN_PORT --manAddress $MAN_WALLET --entrust /matrix/entrust.json --gcmode archive --outputinfo 1 --syncmode full --loadsnapfile "TrieData1784250"
 else
