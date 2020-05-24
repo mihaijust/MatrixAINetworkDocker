@@ -27,7 +27,7 @@ fi
 MAN_WALLET="$(ls /matrix/chaindata/keystore/)"
 
 # link TrieData to persistent mount
-if [ -f "/matrix/snapdir/TrieData1784250" ]; then
+if [ -f "/matrix/chaindata/snapdir/TrieData1784250" ]; then
 	ln -sf /matrix/chaindata/snapdir/TrieData1784250 /matrix/snapdir/TrieData1784250
 fi
 
