@@ -1,6 +1,6 @@
 ### How to use this container
 
-Visit https://medium.com/@disarmm/matrix-ai-network-docker-node-3c6940b9555c for a full guide on how to use this container effectively
+This image is aimed to be used for running a Matrix AI Network blockchain node on a single server in docker container. Minimum specifications for 1 container node:
 
 
 ### System Requirements
@@ -14,3 +14,7 @@ Visit https://medium.com/@disarmm/matrix-ai-network-docker-node-3c6940b9555c for
 |           |                                              |   |
 
 The idea here is that if you have the extra tokens to stake, you can create multiple containers. Since they will not all get picked at once, you increase your odds of utilizing your hardware if you have multiple containers running on your system. You should judge your resources appropriately and not put 20 containers on a system that can barely run one. This is more so intended for those with 20+ core servers that are wasted when idle.
+
+This is under no circumstance a recommendation to use for profit-generating, but for academic research and educational purposes only - since the team behing Matrix AI Network is manipulating and lying its community for the past 3 years.
+
+Special thanks to Disarmm who built first version of dockerized Matrix node at a time when not all hope in the Matrix AI Network blockchain team was lost.
