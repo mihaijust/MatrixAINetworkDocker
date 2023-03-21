@@ -17,4 +17,4 @@ The idea here is that if you have the extra tokens to stake, you can create mult
 
 This is under no circumstance a recommendation to use for profit-generating, but for academic research and educational purposes only - since the team behing Matrix AI Network is manipulating and lying its community for the past 3 years.
 
-Special thanks to Disarmm who built first version of dockerized Matrix node at a time when not all hope in the Matrix AI Network blockchain team was lost.
+Special thanks to Disarmm who built first version of dockerized Matrix node at a time when not all hope in the Matrix AI Network blockchain team was lost. Not really recommended to spend time on it as it seems it was a moneygrab.
